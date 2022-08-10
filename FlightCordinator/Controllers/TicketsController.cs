@@ -12,55 +12,55 @@ namespace FlightCordinator.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AirportsController : ControllerBase
+    public class TicketsController : ControllerBase
     {
         private readonly FCContext _context;
 
-        public AirportsController(FCContext context)
+        public TicketsController(FCContext context)
         {
             _context = context;
         }
 
-        // GET: api/Airports
+        // GET: api/Tickets
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Airport>>> GetAirports()
+        public async Task<ActionResult<IEnumerable<Ticket>>> GetTicket()
         {
-          if (_context.Airports == null)
+          if (_context.Ticket == null)
           {
               return NotFound();
           }
-            return await _context.Airports.ToListAsync();
+            return await _context.Ticket.ToListAsync();
         }
 
-        // GET: api/Airports/5
+        // GET: api/Tickets/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Airport>> GetAirport(int id)
+        public async Task<ActionResult<Ticket>> GetTicket(int id)
         {
-          if (_context.Airports == null)
+          if (_context.Ticket == null)
           {
               return NotFound();
           }
-            var airport = await _context.Airports.FindAsync(id);
+            var ticket = await _context.Ticket.FindAsync(id);
 
-            if (airport == null)
+            if (ticket == null)
             {
                 return NotFound();
             }
 
-            return airport;
+            return ticket;
         }
 
-        // PUT: api/Airports/5
+        // PUT: api/Tickets/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAirport(int id, Airport airport)
+        public async Task<IActionResult> PutTicket(int id, Ticket ticket)
         {
-            if (id != airport.AirportId)
+            if (id != ticket.TicketId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(airport).State = EntityState.Modified;
+            _context.Entry(ticket).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace FlightCordinator.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AirportExists(id))
+                if (!TicketExists(id))
                 {
                     return NotFound();
                 }
@@ -81,44 +81,44 @@ namespace FlightCordinator.Controllers
             return NoContent();
         }
 
-        // POST: api/Airports
+        // POST: api/Tickets
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Airport>> PostAirport(Airport airport)
+        public async Task<ActionResult<Ticket>> PostTicket(Ticket ticket)
         {
-          if (_context.Airports == null)
+          if (_context.Ticket == null)
           {
-              return Problem("Entity set 'FCContext.Airports'  is null.");
+              return Problem("Entity set 'FCContext.Ticket'  is null.");
           }
-            _context.Airports.Add(airport);
+            _context.Ticket.Add(ticket);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAirport", new { id = airport.AirportId }, airport);
+            return CreatedAtAction("GetTicket", new { id = ticket.TicketId }, ticket);
         }
 
-        // DELETE: api/Airports/5
+        // DELETE: api/Tickets/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAirport(int id)
+        public async Task<IActionResult> DeleteTicket(int id)
         {
-            if (_context.Airports == null)
+            if (_context.Ticket == null)
             {
                 return NotFound();
             }
-            var airport = await _context.Airports.FindAsync(id);
-            if (airport == null)
+            var ticket = await _context.Ticket.FindAsync(id);
+            if (ticket == null)
             {
                 return NotFound();
             }
 
-            _context.Airports.Remove(airport);
+            _context.Ticket.Remove(ticket);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool AirportExists(int id)
+        private bool TicketExists(int id)
         {
-            return (_context.Airports?.Any(e => e.AirportId == id)).GetValueOrDefault();
+            return (_context.Ticket?.Any(e => e.TicketId == id)).GetValueOrDefault();
         }
     }
 }

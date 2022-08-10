@@ -55,7 +55,7 @@ namespace FlightCordinator.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutFlight(int id, Flight flight)
         {
-            if (id != flight.Id)
+            if (id != flight.FlightId)
             {
                 return BadRequest();
             }
@@ -93,7 +93,7 @@ namespace FlightCordinator.Controllers
             _context.Flights.Add(flight);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFlight", new { id = flight.Id }, flight);
+            return CreatedAtAction("GetFlight", new { id = flight.FlightId }, flight);
         }
 
         // DELETE: api/Flights/5
@@ -118,7 +118,7 @@ namespace FlightCordinator.Controllers
 
         private bool FlightExists(int id)
         {
-            return (_context.Flights?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Flights?.Any(e => e.FlightId == id)).GetValueOrDefault();
         }
     }
 }

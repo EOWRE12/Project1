@@ -12,7 +12,22 @@ namespace FlightCordinator.Data
         public DbSet<Airport> Airports { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //TODO
+            builder.Entity<Passenger>()
+                .HasOne(t => t.Ticket)
+                .WithOne(p => p.Passenger)
+                .HasForeignKey<Ticket>(t => t.PassengerId);
+            //Airport forigen key dependencies
+            builder.Entity<Airport>().HasMany(airport => airport.Flights)
+                .WithOne().HasForeignKey(f => f.DepartureAirportId).IsRequired();
+            builder.Entity<Airport>().HasMany(airport => airport.Flights)
+                .WithOne().HasForeignKey(f => f.ArrivalAirportId).IsRequired();
+            
+            builder.Entity<Airport>().HasMany(airport => airport.Tickets)
+                .WithOne().HasForeignKey(t => t.DepartureAirportId).IsRequired();
+            builder.Entity<Airport>().HasMany(airport => airport.Tickets)
+                .WithOne().HasForeignKey(t => t.ArrivalAirportId).IsRequired();
         }
+        public DbSet<FlightCordinator.Models.Ticket>? Ticket { get; set; }
     }
 }
+

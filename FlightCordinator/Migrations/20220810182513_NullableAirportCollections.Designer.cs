@@ -4,6 +4,7 @@ using FlightCordinator.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlightCordinator.Migrations
 {
     [DbContext(typeof(FCContext))]
-    partial class FCContextModelSnapshot : ModelSnapshot
+    [Migration("20220810182513_NullableAirportCollections")]
+    partial class NullableAirportCollections
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,7 +107,7 @@ namespace FlightCordinator.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TicketId")
+                    b.Property<int>("TicketId")
                         .HasColumnType("int");
 
                     b.HasKey("PassengerId");
@@ -206,7 +208,8 @@ namespace FlightCordinator.Migrations
 
             modelBuilder.Entity("FlightCordinator.Models.Passenger", b =>
                 {
-                    b.Navigation("Ticket");
+                    b.Navigation("Ticket")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -55,7 +55,7 @@ namespace FlightCordinator.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPassenger(int id, Passenger passenger)
         {
-            if (id != passenger.Id)
+            if (id != passenger.PassengerId)
             {
                 return BadRequest();
             }
@@ -93,7 +93,7 @@ namespace FlightCordinator.Controllers
             _context.Passengers.Add(passenger);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPassenger", new { id = passenger.Id }, passenger);
+            return CreatedAtAction("GetPassenger", new { id = passenger.PassengerId }, passenger);
         }
 
         // DELETE: api/Passengers/5
@@ -118,7 +118,7 @@ namespace FlightCordinator.Controllers
 
         private bool PassengerExists(int id)
         {
-            return (_context.Passengers?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Passengers?.Any(e => e.PassengerId == id)).GetValueOrDefault();
         }
     }
 }

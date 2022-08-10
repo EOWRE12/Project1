@@ -2,18 +2,18 @@
 {
     public class Flight
     {
-        public int Id { get; set; }
-        public int NumPassengers { get; set; }
-        public string DepartureAirport { get; set; }
-        public string ArrivalAirport { get; set; }
+        public Flight() { }
+        public int FlightId { get; set; }
+        public int NumPassengers => Passengers?.Count ?? 0;
+        public int DepartureAirportId { get; set; }
+        public int ArrivalAirportId { get; set; }
         public string FlightNumber { get; set; }
         public DateTime DepartureDate { get; set; }
         public DateTime ArrivalDate { get; set; }
 
         //Navigation Properties
-        public virtual ICollection<Passenger> Passengers { get; set; }
-
-        public virtual ICollection<Airport> Airports { get; set; }
+        public virtual ICollection<Passenger>? Passengers { get; set; }
+        public virtual ICollection<Ticket>? Tickets { get; set; }
 
     }
 }
