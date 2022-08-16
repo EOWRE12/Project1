@@ -14,5 +14,13 @@ namespace FlightCordinator.Models
         public string Email { get; set; }
         //navigation props
         public virtual ICollection<Ticket> Tickets { get; set; }
+
+        public Passenger(PassengerDTO dto)
+        {
+            this.Email = dto.Email;
+            this.FirstName = dto.FirstName;
+            this.LastName = dto.LastName;
+            this.Tickets = new List<Ticket>(); 
+        }
     }   
 }

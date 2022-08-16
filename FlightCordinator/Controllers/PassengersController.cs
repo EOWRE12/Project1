@@ -91,13 +91,7 @@ namespace FlightCordinator.Controllers
           {
               return Problem("Entity set 'FCContext.Passengers'  is null.");
           }
-            var passenger = new Passenger()
-            {
-                Email = passengerDto.Email,
-                FirstName = passengerDto.FirstName,
-                LastName = passengerDto.LastName,
-                Tickets = new List<Ticket>()
-            };
+            var passenger = new Passenger(passengerDto);
             _context.Passengers.Add(passenger);
             await _context.SaveChangesAsync();
 
