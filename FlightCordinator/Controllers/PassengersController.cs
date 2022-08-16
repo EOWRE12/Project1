@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FlightCordinator.Data;
 using FlightCordinator.Models;
+using FlightCordinator.DTO;
 
 namespace FlightCordinator.Controllers
 {
@@ -55,7 +56,7 @@ namespace FlightCordinator.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPassenger(int id, Passenger passenger)
         {
-            if (id != passenger.PassengerId)
+            if (id != passenger.Id)
             {
                 return BadRequest();
             }
@@ -84,16 +85,23 @@ namespace FlightCordinator.Controllers
         // POST: api/Passengers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Passenger>> PostPassenger(Passenger passenger)
+        public async Task<ActionResult<Passenger>> PostPassenger(PassengerDTO passengerDto)
         {
           if (_context.Passengers == null)
           {
               return Problem("Entity set 'FCContext.Passengers'  is null.");
           }
+            var passenger = new Passenger()
+            {
+                Email = passengerDto.Email,
+                FirstName = passengerDto.FirstName,
+                LastName = passengerDto.LastName,
+                Tickets = new List<Ticket>()
+            };
             _context.Passengers.Add(passenger);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPassenger", new { id = passenger.PassengerId }, passenger);
+            return CreatedAtAction("GetPassenger", new { id = passenger.Id }, passenger);
         }
 
         // DELETE: api/Passengers/5
@@ -118,7 +126,7 @@ namespace FlightCordinator.Controllers
 
         private bool PassengerExists(int id)
         {
-            return (_context.Passengers?.Any(e => e.PassengerId == id)).GetValueOrDefault();
+            return (_context.Passengers?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

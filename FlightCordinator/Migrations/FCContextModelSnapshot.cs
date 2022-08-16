@@ -24,11 +24,11 @@ namespace FlightCordinator.Migrations
 
             modelBuilder.Entity("FlightCordinator.Models.Airport", b =>
                 {
-                    b.Property<int>("AirportId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AirportId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -46,49 +46,52 @@ namespace FlightCordinator.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("AirportId");
+                    b.HasKey("Id");
 
                     b.ToTable("Airports");
                 });
 
             modelBuilder.Entity("FlightCordinator.Models.Flight", b =>
                 {
-                    b.Property<int>("FlightId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FlightId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Arrival")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ArrivalAirportId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ArrivalDate")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("Capacity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Departure")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("DepartureAirportId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("DepartureDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("FlightNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("FlightId");
-
-                    b.HasIndex("ArrivalAirportId");
+                    b.HasKey("Id");
 
                     b.ToTable("Flights");
                 });
 
             modelBuilder.Entity("FlightCordinator.Models.Passenger", b =>
                 {
-                    b.Property<int>("PassengerId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PassengerId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -105,10 +108,7 @@ namespace FlightCordinator.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TicketId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PassengerId");
+                    b.HasKey("Id");
 
                     b.HasIndex("FlightId");
 
@@ -117,17 +117,11 @@ namespace FlightCordinator.Migrations
 
             modelBuilder.Entity("FlightCordinator.Models.Ticket", b =>
                 {
-                    b.Property<int>("TicketId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TicketId"), 1L, 1);
-
-                    b.Property<int>("ArrivalAirportId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DepartureAirportId")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("FlightId")
                         .HasColumnType("int");
@@ -135,29 +129,13 @@ namespace FlightCordinator.Migrations
                     b.Property<int>("PassengerId")
                         .HasColumnType("int");
 
-                    b.Property<string>("PassengerName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("TicketId");
-
-                    b.HasIndex("ArrivalAirportId");
+                    b.HasKey("Id");
 
                     b.HasIndex("FlightId");
 
-                    b.HasIndex("PassengerId")
-                        .IsUnique();
+                    b.HasIndex("PassengerId");
 
                     b.ToTable("Ticket");
-                });
-
-            modelBuilder.Entity("FlightCordinator.Models.Flight", b =>
-                {
-                    b.HasOne("FlightCordinator.Models.Airport", null)
-                        .WithMany("Flights")
-                        .HasForeignKey("ArrivalAirportId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("FlightCordinator.Models.Passenger", b =>
@@ -169,44 +147,31 @@ namespace FlightCordinator.Migrations
 
             modelBuilder.Entity("FlightCordinator.Models.Ticket", b =>
                 {
-                    b.HasOne("FlightCordinator.Models.Airport", null)
-                        .WithMany("Tickets")
-                        .HasForeignKey("ArrivalAirportId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FlightCordinator.Models.Flight", null)
-                        .WithMany("Tickets")
+                    b.HasOne("FlightCordinator.Models.Flight", "Flight")
+                        .WithMany()
                         .HasForeignKey("FlightId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FlightCordinator.Models.Passenger", "Passenger")
-                        .WithOne("Ticket")
-                        .HasForeignKey("FlightCordinator.Models.Ticket", "PassengerId")
+                        .WithMany("Tickets")
+                        .HasForeignKey("PassengerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Flight");
+
                     b.Navigation("Passenger");
-                });
-
-            modelBuilder.Entity("FlightCordinator.Models.Airport", b =>
-                {
-                    b.Navigation("Flights");
-
-                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("FlightCordinator.Models.Flight", b =>
                 {
                     b.Navigation("Passengers");
-
-                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("FlightCordinator.Models.Passenger", b =>
                 {
-                    b.Navigation("Ticket");
+                    b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618
         }

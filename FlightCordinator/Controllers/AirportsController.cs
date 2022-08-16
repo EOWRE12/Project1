@@ -55,7 +55,7 @@ namespace FlightCordinator.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAirport(int id, Airport airport)
         {
-            if (id != airport.AirportId)
+            if (id != airport.Id)
             {
                 return BadRequest();
             }
@@ -93,7 +93,7 @@ namespace FlightCordinator.Controllers
             _context.Airports.Add(airport);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAirport", new { id = airport.AirportId }, airport);
+            return CreatedAtAction("GetAirport", new { id = airport.Id }, airport);
         }
 
         // DELETE: api/Airports/5
@@ -118,7 +118,7 @@ namespace FlightCordinator.Controllers
 
         private bool AirportExists(int id)
         {
-            return (_context.Airports?.Any(e => e.AirportId == id)).GetValueOrDefault();
+            return (_context.Airports?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

@@ -1,17 +1,18 @@
-﻿namespace FlightCordinator.Models
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
+using FlightCordinator.DTO;
+
+namespace FlightCordinator.Models
 {
     public class Passenger
     {
-        public int PassengerId { get; set; }
+        public int Id { get; set; }
+        [Required]
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-
-        public int? TicketId { get; set; }
-        public Ticket? Ticket { get; set; }
-
-        //Navigation Properties
-        //public virtual ICollection<Flight> Flights { get; set; } 
-        //public virtual ICollection<Airport> Airports { get; set; }
-    }
+        //navigation props
+        public virtual ICollection<Ticket> Tickets { get; set; }
+    }   
 }

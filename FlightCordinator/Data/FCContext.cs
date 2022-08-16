@@ -12,22 +12,19 @@ namespace FlightCordinator.Data
         public DbSet<Airport> Airports { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Passenger>()
-                .HasOne(t => t.Ticket)
-                .WithOne(p => p.Passenger)
-                .HasForeignKey<Ticket>(t => t.PassengerId);
-            //Airport forigen key dependencies
-            builder.Entity<Airport>().HasMany(airport => airport.Flights)
-                .WithOne().HasForeignKey(f => f.DepartureAirportId).IsRequired();
-            builder.Entity<Airport>().HasMany(airport => airport.Flights)
-                .WithOne().HasForeignKey(f => f.ArrivalAirportId).IsRequired();
-            
-            builder.Entity<Airport>().HasMany(airport => airport.Tickets)
-                .WithOne().HasForeignKey(t => t.DepartureAirportId).IsRequired();
-            builder.Entity<Airport>().HasMany(airport => airport.Tickets)
-                .WithOne().HasForeignKey(t => t.ArrivalAirportId).IsRequired();
+            builder.Entity<Ticket>()
+                .HasKey(t => t.Id);
+
+            builder.Entity<Ticket>()
+                .HasOne(t => t.Passenger)
+                .WithMany(p => p.Tickets)
+                .HasForeignKey(t => t.PassengerId);
+
+            builder.Entity<Ticket>()
+                .HasOne(t => t.Flight)
+                .WithMany(f => f.Passengers)
+                .HasForeignKey(t => t.PassengerId);
         }
-        public DbSet<FlightCordinator.Models.Ticket>? Ticket { get; set; }
     }
 }
 
