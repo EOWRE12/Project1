@@ -37,28 +37,36 @@ namespace FlightCordinator.Controllers
 
         // GET: api/Passengers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<PassengerDetailsDTO>> GetPassenger(int id)
+        public async Task<IActionResult> GetPassenger(int id)
         {
           if (_context.Passengers == null)
           {
               return NotFound();
           }
             var passenger = await _context.Passengers.FindAsync(id);
+            _logger.LogInformation(passenger.LastName + passenger.FirstName + passenger.Email);
             if (passenger == null)
             {
                 return NotFound();
             }
             var flights = await _context.Flights.Where(f => f.Passengers.Where(t => t.PassengerId == passenger.Id).Any()).ToListAsync();
-            _logger.LogError(flights.Count().ToString());
-            var pDto = new PassengerDetailsDTO
+            //var tickets = await _context.Tickets.Where(t => t.PassengerId == passenger.Id).ToListAsync();
+            flights.ForEach(f =>
             {
-                Id = passenger.Id,
-                firstName = passenger.FirstName,
-                lastName = passenger.LastName,
-                email = passenger.Email,
-                Flights = flights 
+                _logger.LogInformation(f.FlightNumber);
+                _logger.LogInformation(f.ArrivalAirport);
+                _logger.LogInformation(f.DepartureAirport);
+            });
+            //_logger.LogError(flights.Count().ToString());
+            var pDto = new PassengerDetailsDTO(passenger.Id, passenger.FirstName, passenger.LastName, passenger.Email, flights);
 
-            };
+            //pDto.Id = passenger.Id;
+            //    pDto.FirstName = passenger.FirstName;
+            //    pDto.LastName = passenger.LastName;
+            //    pDto.Email = passenger.Email;
+            //    pDto.Flights.AddRange(flights);
+                //Tickets = tickets 
+            
             return Ok(pDto);
         }
 
