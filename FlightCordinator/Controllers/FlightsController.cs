@@ -52,11 +52,11 @@ namespace FlightCordinator.Controllers
             {
                 Id = flight.Id,
                 Capacity = flight.Capacity,
-                NumPassengers = flight.NumPassengers,
+                NumPassengers = passengers.Count,
                 Departure = flight.Departure,
                 Arrival = flight.Arrival,
-                DepartureAirportId = flight.DepartureAirportId,
-                ArrivalAirportId = flight.ArrivalAirportId,
+                DepartureAirport = flight.DepartureAirport,
+                ArrivalAirport = flight.ArrivalAirport,
                 FlightNumber = flight.FlightNumber,
                 Passengers = passengers
             };
@@ -66,8 +66,14 @@ namespace FlightCordinator.Controllers
         // PUT: api/Flights/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFlight(int id, Flight flight)
+        public async Task<IActionResult> PutFlight(int id, FlightDTO dto)
         {
+            var flight = new Flight(dto, id);
+            if (flight.Passengers == null)
+            {
+                var passengers = await _context.Tickets.Where(t => t.FlightId == flight.Id).ToListAsync();
+                flight.Passengers = passengers;
+            }
             if (id != flight.Id)
             {
                 return BadRequest();

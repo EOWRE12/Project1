@@ -1,5 +1,6 @@
 using FlightCordinator.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace FlightCordinator
 {
@@ -19,6 +20,10 @@ namespace FlightCordinator
                         policy.AllowAnyMethod();
                     });
             });
+            //builder.Services.AddControllers().AddJsonOptions(options =>
+            //{
+            //    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+            //});
 
             builder.Services.AddDbContext<FCContext>(options =>
             {
@@ -41,6 +46,8 @@ namespace FlightCordinator
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("AllowAll");
 
             app.UseAuthorization();
 

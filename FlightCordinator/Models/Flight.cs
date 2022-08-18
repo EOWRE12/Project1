@@ -6,8 +6,8 @@ namespace FlightCordinator.Models
     {
         public int Id { get; set; }
         public int Capacity { get; set; }
-        public int DepartureAirportId { get; set; }
-        public int ArrivalAirportId { get; set; }
+        public string DepartureAirport { get; set; }
+        public string ArrivalAirport { get; set; }
         public string FlightNumber { get; set; }
         public string Departure { get; set; }
         public string Arrival { get; set; }
@@ -21,13 +21,23 @@ namespace FlightCordinator.Models
         public Flight(FlightDTO dto)
         {
             this.Capacity = dto.Capacity;
-            this.DepartureAirportId = dto.DepartureAirportId;
-            this.ArrivalAirportId = dto.ArrivalAirportId;
+            this.DepartureAirport = dto.DepartureAirport;
+            this.ArrivalAirport = dto.ArrivalAirport;
             this.FlightNumber = dto.FlightNumber;
             this.Departure = dto.Departure;
             this.Arrival = dto.Arrival;
             this.Passengers = new List<Ticket>();
         }
-
+        public Flight(FlightDTO dto, int id)
+        {
+            this.Id = id;
+            this.Capacity = dto.Capacity;
+            this.DepartureAirport = dto.DepartureAirport;
+            this.ArrivalAirport = dto.ArrivalAirport;
+            this.FlightNumber = dto.FlightNumber;
+            this.Departure = dto.Departure;
+            this.Arrival = dto.Arrival;
+            this.Passengers = new List<Ticket>();
+        }
     }
 }

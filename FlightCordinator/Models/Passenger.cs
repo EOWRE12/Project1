@@ -15,12 +15,23 @@ namespace FlightCordinator.Models
         //navigation props
         public virtual ICollection<Ticket> Tickets { get; set; }
 
+        public Passenger() { }
+
         public Passenger(PassengerDTO dto)
         {
             this.Email = dto.Email;
             this.FirstName = dto.FirstName;
             this.LastName = dto.LastName;
             this.Tickets = new List<Ticket>(); 
+        }
+
+        public Passenger(PassengerDTO dto, int id)
+        {
+            this.Id = id;
+            this.Email = dto.Email;
+            this.FirstName = dto.FirstName;
+            this.LastName = dto.LastName;
+            this.Tickets = new List<Ticket>();
         }
     }   
 }

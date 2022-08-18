@@ -16,10 +16,12 @@ namespace FlightCordinator.Controllers
     public class PassengersController : ControllerBase
     {
         private readonly FCContext _context;
+        private readonly ILogger<PassengersController> _logger;
 
-        public PassengersController(FCContext context)
+        public PassengersController(ILogger<PassengersController> logger, FCContext context)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: api/Passengers
@@ -35,27 +37,37 @@ namespace FlightCordinator.Controllers
 
         // GET: api/Passengers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Passenger>> GetPassenger(int id)
+        public async Task<ActionResult<PassengerDetailsDTO>> GetPassenger(int id)
         {
           if (_context.Passengers == null)
           {
               return NotFound();
           }
             var passenger = await _context.Passengers.FindAsync(id);
-
             if (passenger == null)
             {
                 return NotFound();
             }
+            var flights = await _context.Flights.Where(f => f.Passengers.Where(t => t.PassengerId == passenger.Id).Any()).ToListAsync();
+            _logger.LogError(flights.Count().ToString());
+            var pDto = new PassengerDetailsDTO
+            {
+                Id = passenger.Id,
+                firstName = passenger.FirstName,
+                lastName = passenger.LastName,
+                email = passenger.Email,
+                Flights = flights 
 
-            return passenger;
+            };
+            return Ok(pDto);
         }
 
         // PUT: api/Passengers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPassenger(int id, Passenger passenger)
+        public async Task<IActionResult> PutPassenger(int id, PassengerDTO dto)
         {
+            var passenger = new Passenger(dto, id);
             if (id != passenger.Id)
             {
                 return BadRequest();

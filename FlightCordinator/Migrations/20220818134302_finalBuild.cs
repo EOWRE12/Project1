@@ -4,7 +4,7 @@
 
 namespace FlightCordinator.Migrations
 {
-    public partial class ModelsAndDTOs : Migration
+    public partial class finalBuild : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,8 +31,8 @@ namespace FlightCordinator.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Capacity = table.Column<int>(type: "int", nullable: false),
-                    DepartureAirportId = table.Column<int>(type: "int", nullable: false),
-                    ArrivalAirportId = table.Column<int>(type: "int", nullable: false),
+                    DepartureAirport = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ArrivalAirport = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FlightNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Departure = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Arrival = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -50,17 +50,11 @@ namespace FlightCordinator.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FlightId = table.Column<int>(type: "int", nullable: true)
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Passengers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Passengers_Flights_FlightId",
-                        column: x => x.FlightId,
-                        principalTable: "Flights",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -90,11 +84,6 @@ namespace FlightCordinator.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Passengers_FlightId",
-                table: "Passengers",
-                column: "FlightId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Tickets_FlightId",
                 table: "Tickets",
                 column: "FlightId");
@@ -114,10 +103,10 @@ namespace FlightCordinator.Migrations
                 name: "Tickets");
 
             migrationBuilder.DropTable(
-                name: "Passengers");
+                name: "Flights");
 
             migrationBuilder.DropTable(
-                name: "Flights");
+                name: "Passengers");
         }
     }
 }
