@@ -1,0 +1,49 @@
+<div class="container">
+    <h1>Create a New Flight</h1>
+    <a href="#" routerLink="/flight/index" class="btn btn-primary">&lt;&lt;Back</a>
+    <form [formGroup]="newFlightForm" (ngSubmit)="submit()">
+        <div class="form-group">
+            <label for="flightNumber">Flight Number</label>
+            <input type="text" class ="form-control" id ="flightNumber" formControlName="flightNumber" />
+            <div *ngIf="f['flightNumber'].touched && f['flightNumber'].invalid" class="alert alert-danger">
+                <div *ngIf="f['flightNumber'].errors f['flightNumber'].errors['required']">Flight Number is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="capacity">Capacity</label>
+            <input type="text" class ="form-control" id ="capacity" formControlName="capacity"/>
+            <div *ngIf="f['capacity'].touched && f['capacity'].invalid" class="alert alert-danger">
+                <div *ngIf="f['capacity'].errors f['capacity'].errors['required']">Capacity is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="departureAirport">Departure Airport</label>
+            <input type="text" class ="form-control" id ="departureAirport" formControlName="departureAirport" />
+            <div *ngIf="f['departureAirport'].touched && f['departureAirport'].invalid" class="alert alert-danger">
+                <div *ngIf="f['departureAirport'].errors f['departureAirport'].errors['required']">Departure Airport Id is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="arrivalAirport">Arrival Airport</label>
+            <input type="text" class ="form-control" id ="arrivalAirport" formControlName="arrivalAirport" />
+            <div *ngIf="f['arrivalAirport'].touched && f['arrivalAirport'].invalid" class="alert alert-danger">
+                <div *ngIf="f['arrivalAirport'].errors f['arrivalAirport'].errors['required']">Arrival Airport Id is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="departure">Departure </label>
+            <input type="text" placeholder="XX/XX/XXXX 00:00:00" class ="form-control" id ="departure" formControlName="departure" />
+            <div *ngIf="f['departure'].touched && f['departure'].invalid" class="alert alert-danger">
+                <div *ngIf="f['departure'].errors f['departure'].errors['required']">Departure is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="arrival">Arrival</label>
+            <input type="text" placeholder ="XX/XX/XXX 00:00:00" class ="form-control" id ="arrival" formControlName="arrival" />
+            <div *ngIf="f['arrival'].touched && f['arrival'].invalid" class="alert alert-danger">
+                <div *ngIf="f['arrival'].errors f['arrival'].errors['required']">Arrival is required</div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success" [disabled]="!newFlightForm.valid">Submit</button>
+    </form>
+</div>

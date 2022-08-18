@@ -1,0 +1,25 @@
+<div class="container">
+    <h1>Passengers</h1>
+    <a href="#" routerLink="/passenger/create" class="btn btn-success">+Add a Passenger</a>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let passenger of passengers">
+                <td> {{ passenger.id }} </td>
+                <td> {{ passenger.firstName }} {{passenger.lastName}} </td>
+                <td> {{ passenger.email }} </td>
+                <td>
+                    <button type="button" class ="btn btn-warning" (click)="editPassenger(passenger.id)">Edit</button>
+                    <button type="button" class="btn btn-danger" (click)="deletePassenger(passenger.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
