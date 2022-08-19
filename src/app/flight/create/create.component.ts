@@ -31,9 +31,6 @@ export class CreateComponent implements OnInit {
 
   submit() {
     this.flightService.createFlight(this.newFlightForm.value).subscribe(() => {
-      console.log(this.newFlightForm.value);
-      console.log(this.newFlightForm.valid);
-      console.log("Flight Created successfully!");
       this.router.navigateByUrl('flight/index');
     });
   }

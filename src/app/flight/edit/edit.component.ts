@@ -39,7 +39,8 @@ export class EditComponent implements OnInit {
   }
 
   updateFlight(): void {
-    this.flightService.updateFlight(this.updateFlightForm.value).subscribe();
-    this.router.navigateByUrl('flight/index');
+    this.flightService.updateFlight(this.updateFlightForm.value).subscribe(() => {
+      this.router.navigateByUrl('flight/index');
+    });
   }
 }

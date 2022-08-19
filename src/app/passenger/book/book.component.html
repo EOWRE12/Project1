@@ -1,0 +1,34 @@
+<div class="container">
+    <h1>Choose a Flight to Book</h1>
+    <a href="#" routerLink="/passenger/details" class="btn btn-primary">&lt;&lt;Back</a>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Flight Number</th>
+                <th>Capacity</th>
+                <th>Departure Airport</th>
+                <th>Arrival Airport</th>
+                <th>Departure</th>
+                <th>Arrival</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let flight of flights">
+                <tr *ngIf="flight.numPassengers < flight.capacity">
+                    <td> {{ flight.id }} </td>
+                    <td> {{ flight.flightNumber }} </td>
+                    <td> {{ flight.capacity}} </td>
+                    <td> {{ flight.departureAirport }} </td>
+                    <td> {{ flight.arrivalAirport }} </td>
+                    <td> {{ flight.departure }} </td>
+                    <td> {{ flight.arrival }} </td>
+                    <td>
+                        <button type="button" class="btn btn-info" (click)="bookFlight(flight.id)">Book</button> 
+                    </td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>

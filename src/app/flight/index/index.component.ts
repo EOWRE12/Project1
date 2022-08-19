@@ -35,4 +35,9 @@ export class IndexComponent implements OnInit {
     this.router.navigateByUrl("/flight/edit");
   }
 
+  flightDetails(id:number): void {
+    this.flightService.updateFlightId(id);
+    this.router.navigateByUrl("flight/details");
+  }
+
 }

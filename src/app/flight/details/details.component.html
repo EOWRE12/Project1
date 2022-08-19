@@ -1,6 +1,14 @@
 <div class="container">
-    <h1>Passengers</h1>
-    <a href="#" routerLink="/passenger/create" class="btn btn-primary">+Add a Passenger</a>
+    <div>
+        <h1>Flight {{ flight.flightNumber }} Details</h1>
+        <h5>Number of Passengers: {{ flight.numPassengers }} </h5>
+        <h5>Capacity: {{ flight.capacity }} </h5>
+        <h5>Departure Airport: {{ flight.departureAirport }}</h5>
+        <h5>Arrival Airport: {{ flight.arrivalAirport }}</h5>
+        <h5>Departure Data and Time: {{ flight.departure }}</h5>
+        <h5>Arrival Data and Time: {{ flight.arrival }}</h5>
+    </div>
+    <a href="#" routerLink="/flight/index" class="btn btn-primary">&lt;&lt;Back</a>
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
@@ -9,21 +17,15 @@
                 <th>Email</th>
                 <th>Job</th>
                 <th>Age</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let passenger of passengers">
+            <tr *ngFor="let passenger of flight.passengers">
                 <td> {{ passenger.id }} </td>
                 <td> {{ passenger.firstName }} {{passenger.lastName}} </td>
                 <td> {{ passenger.email }} </td>
                 <td> {{ passenger.job }} </td>
                 <td> {{ passenger.age }} </td>
-                <td>
-                    <button type="button" class="btn btn-success" (click)="passengerDetails(passenger.id)">Details</button>
-                    <button type="button" class ="btn btn-warning" (click)="editPassenger(passenger.id)">Edit</button>
-                    <button type="button" class="btn btn-danger" (click)="deletePassenger(passenger.id)">Delete</button>
-                </td>
             </tr>
         </tbody>
     </table>

@@ -1,6 +1,6 @@
 <div class="container">
-    <h1>Create a New Passenger</h1>
-    <a href="#" routerLink="passenger/index" class="btn btn-primary">&lt;&lt;Back</a>
+    <h1>Edit a New Passenger</h1>
+    <a href="#" routerLink="/passenger/index" class="btn btn-primary">&lt;&lt;Back</a>
     <form [formGroup]="updatePassengerForm" (ngSubmit)="updatePassenger()">
         <div class="form-group">
             <label for="firstName">First Name</label>
@@ -21,6 +21,20 @@
             <input type="text" placeholder="{{ passenger.email }}" class ="form-control" id ="email" formControlName="email"/>
             <div *ngIf="f['email'].touched && f['email'].invalid" class="alert alert-danger">
                 <div *ngIf="f['email'].errors f['email'].errors['required']">Email is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="text" placeholder="{{ passenger.age }}" class ="form-control" id ="age" formControlName="age"/>
+            <div *ngIf="f['age'].touched && f['age'].invalid" class="alert alert-danger">
+                <div *ngIf="f['age'].errors f['age'].errors['required']">Age is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="job">Job</label>
+            <input type="text" placeholder="{{ passenger.job }}" class ="form-control" id ="job" formControlName="job"/>
+            <div *ngIf="f['job'].touched && f['job'].invalid" class="alert alert-danger">
+                <div *ngIf="f['job'].errors f['job'].errors['required']">Job is required</div>
             </div>
         </div>
         <button type="submit" class="btn btn-success" [disabled]="!updatePassengerForm.valid">Submit</button>

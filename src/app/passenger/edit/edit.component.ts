@@ -22,7 +22,9 @@ export class EditComponent implements OnInit {
     this.updatePassengerForm = new FormGroup({
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required)
+      email: new FormControl('', Validators.required),
+      age: new FormControl('', Validators.required),
+      job: new FormControl('', Validators.required)
     });
   }
 
@@ -34,9 +36,8 @@ export class EditComponent implements OnInit {
   }
 
   updatePassenger(): void {
-    this.passengerService.updatePassenger(this.updatePassengerForm.value).subscribe();
-    // this.passengerService.deletePassenger(this.passenger.id).subscribe();
-    // this.passengerService.createPassenger(this.updatePassengerForm.value).subscribe();
-    this.router.navigateByUrl('passenger/index');
+    this.passengerService.updatePassenger(this.updatePassengerForm.value).subscribe(() => {
+      this.router.navigateByUrl('passenger/index');
+    });
   }
 }

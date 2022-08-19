@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { provideProtractorTestingSupport } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Passenger } from '../passenger';
 import { PassengerService } from '../passenger.service';
+import { Ticket } from '../ticket';
 
 @Component({
   selector: 'app-index',
@@ -10,6 +12,7 @@ import { PassengerService } from '../passenger.service';
 })
 export class IndexComponent implements OnInit {
   passengers: Passenger[] =[];
+  ticket: Ticket = {} as Ticket;
 
   constructor(
     private passengerService: PassengerService,
@@ -17,7 +20,6 @@ export class IndexComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    console.log("loadign passengers");
     this.retrievePassengers();
   }
 
@@ -35,4 +37,8 @@ export class IndexComponent implements OnInit {
     this.router.navigateByUrl("/passenger/edit");
   }
 
+  passengerDetails(id:number): void {
+    this.passengerService.updatePassengerId(id);
+    this.router.navigateByUrl("/passenger/details");
+  }
 }

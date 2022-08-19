@@ -1,1 +1,37 @@
-<p>details works!</p>
+<div class="container">
+    <div>
+        <h1>Passenger Details</h1>
+        <h5>First Name: {{ passenger.firstName }}</h5>
+        <h5>Last Name: {{ passenger.lastName }}</h5>
+        <h5>Email: {{ passenger.email }}</h5>
+        <h5>Job: {{ passenger.job }}</h5>
+        <h5>Age: {{ passenger.age }}</h5>
+        <button type="button" class="btn btn-success" (click)="bookNewFlight()">Book a new Flight</button>
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Flight Number</th>
+                <th>Capacity</th>
+                <th>Departure Airport</th>
+                <th>Arrival Airport</th>
+                <th>Departure</th>
+                <th>Arrival</th>
+                <th>Confirmation Code</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let flight of passenger.flights">
+                <th>{{ flight.id }}</th>
+                <th>{{ flight.flightNumber }}</th>
+                <th>{{ flight.capacity }}</th>
+                <th>{{ flight.departureAirport }}</th>
+                <th>{{ flight.arrivalAirport }}</th>
+                <th>{{ flight.departure }}</th>
+                <th>{{ flight.arrival }}</th>
+                <th>{{ passenger.id }}LT{{ flight.flightNumber }}TL{{ flight.id }} </th>
+            </tr>
+        </tbody>
+    </table>
+</div>

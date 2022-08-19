@@ -6,6 +6,7 @@ import { FlightRoutingModule } from './flight-routing.module';
 import { CreateComponent } from './create/create.component';
 import { IndexComponent } from './index/index.component';
 import { EditComponent } from './edit/edit.component';
+import { DetailsComponent } from './details/details.component';
 
 
 
@@ -15,7 +16,8 @@ import { EditComponent } from './edit/edit.component';
   declarations: [
     CreateComponent,
     IndexComponent,
-    EditComponent
+    EditComponent,
+    DetailsComponent
   ],
   imports: [
     CommonModule,

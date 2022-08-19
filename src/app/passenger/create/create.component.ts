@@ -20,7 +20,9 @@ export class CreateComponent implements OnInit {
     this.newPassengerForm = new FormGroup({
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required)
+      email: new FormControl('', Validators.required),
+      age: new FormControl('', Validators.required),
+      job: new FormControl('', Validators.required)
     });
   }
 

@@ -7,6 +7,7 @@ import { IndexComponent } from './index/index.component';
 import { CreateComponent } from './create/create.component';
 import { EditComponent } from './edit/edit.component';
 import { DetailsComponent } from './details/details.component';
+import { BookComponent } from './book/book.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { DetailsComponent } from './details/details.component';
     IndexComponent,
     CreateComponent,
     EditComponent,
-    DetailsComponent
+    DetailsComponent,
+    BookComponent
   ],
   imports: [
     CommonModule,

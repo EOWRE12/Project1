@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {from, Observable, throwError } from 'rxjs';
+import { from, Observable, throwError } from 'rxjs';
 import { catchError, of } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 
@@ -27,6 +27,7 @@ export class FlightService {
   }
 
   getFlight(id: number): Observable<Flight> {
+    console.log(this.http.get<Flight>(`${this.FlightURL}/${id}`, this.httpOptions).subscribe());
     return this.http.get<Flight>(`${this.FlightURL}/${id}`, this.httpOptions);
   }
 

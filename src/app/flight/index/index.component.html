@@ -1,6 +1,6 @@
 <div class="container">
     <h1>Flights</h1>
-    <a href="#" routerLink="/flight/create" class="btn btn-success">+Add a Flight</a>
+    <a href="#" routerLink="/flight/create" class="btn btn-primary">+Add a Flight</a>
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
@@ -24,6 +24,7 @@
                 <td> {{ flight.departure }} </td>
                 <td> {{ flight.arrival }} </td>
                 <td>
+                    <button typre="button" class="btn btn-success" (click)="flightDetails(flight.id)">Details</button>
                     <button type="button" class="btn btn-warning" (click)="editFlight(flight.id)">Edit</button>
                     <button type="button" class="btn btn-danger" (click)="deleteFlight(flight.id)">Delete</button>
                 </td>
