@@ -30,7 +30,12 @@ namespace FlightCordinator.Controllers
           {
               return NotFound();
           }
-            return await _context.Flights.ToListAsync();
+            var flights = await _context.Flights.ToListAsync();
+            foreach (var flight in flights)
+            {
+                var passengers = await _context.Tickets.Where(t => t.FlightId == flight.Id).ToListAsync();
+            }
+            return flights;
         }
 
         // GET: api/Flights/5

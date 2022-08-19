@@ -8,10 +8,11 @@ namespace FlightCordinator.Models
     public class Passenger
     {
         public int Id { get; set; }
-        [Required]
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
+        public string Job { get; set; }
+        public int Age { get; set; }
         //navigation props
         public virtual ICollection<Ticket> Tickets { get; set; }
 
@@ -22,6 +23,8 @@ namespace FlightCordinator.Models
             this.Email = dto.Email;
             this.FirstName = dto.FirstName;
             this.LastName = dto.LastName;
+            this.Job = dto.Job;
+            this.Age = dto.Age;
             this.Tickets = new List<Ticket>(); 
         }
 
@@ -31,6 +34,8 @@ namespace FlightCordinator.Models
             this.Email = dto.Email;
             this.FirstName = dto.FirstName;
             this.LastName = dto.LastName;
+            this.Job = dto.Job;
+            this.Age = dto.Age;
             this.Tickets = new List<Ticket>();
         }
     }   

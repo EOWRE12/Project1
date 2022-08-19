@@ -53,7 +53,9 @@ namespace FlightCordinator.Controllers
             {
                 FirstName = passenger.FirstName,
                 LastName = passenger.LastName,
-                Email = passenger.Email
+                Email = passenger.Email,
+                Age = passenger.Age,
+                Job = passenger.Job
             };
             var passengers = await _context.Passengers.Where(p => p.Tickets.Where(t => t.FlightId == flight.Id).Any()).ToListAsync();
             var fDto = new FlightDTO

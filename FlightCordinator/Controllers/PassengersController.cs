@@ -58,15 +58,17 @@ namespace FlightCordinator.Controllers
                 _logger.LogInformation(f.DepartureAirport);
             });
             //_logger.LogError(flights.Count().ToString());
-            var pDto = new PassengerDetailsDTO(passenger.Id, passenger.FirstName, passenger.LastName, passenger.Email, flights);
-
-            //pDto.Id = passenger.Id;
-            //    pDto.FirstName = passenger.FirstName;
-            //    pDto.LastName = passenger.LastName;
-            //    pDto.Email = passenger.Email;
-            //    pDto.Flights.AddRange(flights);
+            var pDto = new PassengerDetailsDTO
+            {
+                Id = passenger.Id,
+                FirstName = passenger.FirstName,
+                LastName = passenger.LastName,
+                Email = passenger.Email,
+                Age = passenger.Age,
+                Job = passenger.Job,
+                Flights = flights
                 //Tickets = tickets 
-            
+            };
             return Ok(pDto);
         }
 
