@@ -4,7 +4,7 @@
     <form [formGroup]="newFlightForm" (ngSubmit)="submit()">
         <div class="form-group">
             <label for="flightNumber">Flight Number</label>
-            <input type="text" class ="form-control" id ="flightNumber" formControlName="flightNumber" />
+            <input type="text" class ="form-control" id ="flightNumber" formControlName="flightNumber"/>
             <div *ngIf="f['flightNumber'].touched && f['flightNumber'].invalid" class="alert alert-danger">
                 <div *ngIf="f['flightNumber'].errors f['flightNumber'].errors['required']">Flight Number is required</div>
             </div>
