@@ -121,8 +121,6 @@ namespace FlightCordinator.Controllers
               return Problem("Entity set 'FCContext.Tickets'  is null.");
           }
             var ticket = new Ticket(dto);
-            //ticket.Flight = await _context.Flights.FindAsync(ticket.FlightId);
-            //ticket.Passenger = await _context.Passengers.FindAsync(ticket.PassengerId);
             _context.Tickets.Add(ticket);
             await _context.SaveChangesAsync();
 

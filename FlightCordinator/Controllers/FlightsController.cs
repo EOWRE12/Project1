@@ -34,6 +34,7 @@ namespace FlightCordinator.Controllers
             foreach (var flight in flights)
             {
                 var passengers = await _context.Tickets.Where(t => t.FlightId == flight.Id).ToListAsync();
+                flight.Passengers = passengers;
             }
             return flights;
         }

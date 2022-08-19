@@ -50,14 +50,7 @@ namespace FlightCordinator.Controllers
                 return NotFound();
             }
             var flights = await _context.Flights.Where(f => f.Passengers.Where(t => t.PassengerId == passenger.Id).Any()).ToListAsync();
-            //var tickets = await _context.Tickets.Where(t => t.PassengerId == passenger.Id).ToListAsync();
-            flights.ForEach(f =>
-            {
-                _logger.LogInformation(f.FlightNumber);
-                _logger.LogInformation(f.ArrivalAirport);
-                _logger.LogInformation(f.DepartureAirport);
-            });
-            //_logger.LogError(flights.Count().ToString());
+
             var pDto = new PassengerDetailsDTO
             {
                 Id = passenger.Id,
@@ -67,7 +60,6 @@ namespace FlightCordinator.Controllers
                 Age = passenger.Age,
                 Job = passenger.Job,
                 Flights = flights
-                //Tickets = tickets 
             };
             return Ok(pDto);
         }
