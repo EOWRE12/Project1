@@ -7,11 +7,11 @@
         <h5>Job: {{ passenger.job }}</h5>
         <h5>Age: {{ passenger.age }}</h5>
         <button type="button" class="btn btn-success" (click)="bookNewFlight()">Book a new Flight</button>
+        <a href ="#" routerLink="/passenger/index" class="btn btn-primary">&lt;&lt;Back</a>
     </div>
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Flight Number</th>
                 <th>Capacity</th>
                 <th>Departure Airport</th>
@@ -19,11 +19,12 @@
                 <th>Departure</th>
                 <th>Arrival</th>
                 <th>Confirmation Code</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let flight of passenger.flights">
-                <th>{{ flight.id }}</th>
+                <!-- <th>{{ flight.id }}</th> -->
                 <th>{{ flight.flightNumber }}</th>
                 <th>{{ flight.capacity }}</th>
                 <th>{{ flight.departureAirport }}</th>
@@ -31,6 +32,13 @@
                 <th>{{ flight.departure }}</th>
                 <th>{{ flight.arrival }}</th>
                 <th>{{ passenger.id }}LT{{ flight.flightNumber }}TL{{ flight.id }} </th>
+                <th>
+                    <ng-container *ngFor="let ticket of tickets">
+                        <ng-container *ngIf="ticket.flightId == flight.id && ticket.passengerId == passenger.id">
+                            <button type="button" class="btn btn-danger" (click)="deleteTicket(ticket.id)">Delete</button>
+                        </ng-container>
+                    </ng-container>
+                </th>
             </tr>
         </tbody>
     </table>

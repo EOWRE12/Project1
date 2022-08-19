@@ -12,7 +12,6 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Job</th>
@@ -21,7 +20,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let passenger of flight.passengers">
-                <td> {{ passenger.id }} </td>
+                <!-- <td> {{ passenger.id }} </td> -->
                 <td> {{ passenger.firstName }} {{passenger.lastName}} </td>
                 <td> {{ passenger.email }} </td>
                 <td> {{ passenger.job }} </td>

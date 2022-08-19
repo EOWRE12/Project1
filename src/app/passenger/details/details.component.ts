@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { throwError } from 'rxjs';
+import { throwError, VirtualTimeScheduler } from 'rxjs';
 import { Flight } from 'src/app/flight/flight';
 import { Passenger } from '../passenger';
 import { PassengerService } from '../passenger.service';
@@ -13,6 +13,7 @@ import { Ticket } from '../ticket';
 })
 export class DetailsComponent implements OnInit {
   passenger: Passenger = {} as Passenger;
+  tickets: Ticket[] = [];
 
   constructor(
     private passengerService: PassengerService,
@@ -20,6 +21,7 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.retrievePassenger();
+    this.passengerService.getTickets().subscribe(t => this.tickets = t);
   } 
 
   retrievePassenger(): void {
@@ -30,5 +32,12 @@ export class DetailsComponent implements OnInit {
   bookNewFlight(): void {
     this.passengerService.updatePassengerId(this.passenger.id);
     this.router.navigateByUrl("/passenger/book");
+  }
+
+  deleteTicket(id: number) {
+    console.log(id);
+    this.passengerService.deleteTicket(id).subscribe(() => {
+      this.router.navigateByUrl("/passenger/index");
+    });
   }
 }

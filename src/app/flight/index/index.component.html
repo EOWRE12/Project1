@@ -4,7 +4,6 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Flight Number</th>
                 <th>Capacity</th>
                 <th>Departure Airport</th>
@@ -16,7 +15,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let flight of flights">
-                <td> {{ flight.id }} </td>
+                <!-- <td> {{ flight.id }} </td> -->
                 <td> {{ flight.flightNumber }} </td>
                 <td> {{ flight.capacity}} </td>
                 <td> {{ flight.departureAirport }} </td>

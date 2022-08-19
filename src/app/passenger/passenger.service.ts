@@ -67,8 +67,8 @@ export class PassengerService {
     return this.http.put<Ticket>(`${this.TicketURL}/${this.currTicketId}`, this.httpOptions);
   }
 
-  deleteTicket(id: number): Observable<TicketDTO> {
-    return this.http.get<TicketDTO>(`${this.TicketURL}/${id}`, this.httpOptions);
+  deleteTicket(id: number): Observable<Ticket> {
+    return this.http.delete<Ticket>(`${this.TicketURL}/${id}`, this.httpOptions);
   }
 
   updateTicketId(id: number) {
